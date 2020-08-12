@@ -7,9 +7,62 @@ const divideBtn = document.getElementById('btn-divide');
 const currentResultOutput = document.getElementById('current-result');
 const currentCalculationOutput = document.getElementById('current-calculation');
 
-function outputResult(result, text) {
-  currentResultOutput.textContent = result;
-  currentCalculationOutput.textContent = text;
+let logEntries = [];
+function writeToLog(
+  opetation,
+  preResult,
+  operationNumber,
+  result,
+) {
+  const log = {
+    operator: opetation,
+    preResult: preResult,
+    operationNumber: operationNumber,
+    result: result
+  }
+  logEntries.push(log);
+  console.log(logEntries);
 }
 
-outputResult(300, 'hello');
+addBtn.addEventListener('click', addNumbers);
+subtractBtn.addEventListener('click', subtract);
+multiplyBtn.addEventListener('click', multiply);
+divideBtn.addEventListener('click', divide);
+
+function createAndWriteLog(operator, num1, num2){
+  const calDescription = `${num1} ${operator} ${num2}`
+  currentCalculationOutput.textContent = calDescription;
+}
+
+function addNumbers() {
+  const enteredNumber = userInput.value;
+  let out = parseInt(enteredNumber) + 5;
+  currentResultOutput.textContent = out;
+  createAndWriteLog('+', '5', enteredNumber);
+  writeToLog('+', '5', enteredNumber, out,);
+}
+
+function subtract () {
+  const enteredNumber = userInput.value;
+  let out = parseInt(enteredNumber) - 5;
+  currentResultOutput.textContent = out;
+  createAndWriteLog('-', '5', enteredNumber);
+  writeToLog('-', '5', enteredNumber, out,);
+}
+
+function multiply () {
+  const enteredNumber = userInput.value;
+  let out = parseInt(enteredNumber) * 5;
+  currentResultOutput.textContent = out;
+  createAndWriteLog('*', '5', enteredNumber);
+  writeToLog('*', '5', enteredNumber, out,);
+}
+
+function divide () {
+  const enteredNumber = userInput.value;
+  let out = parseInt(enteredNumber) / 5;
+  currentResultOutput.textContent = out;
+  createAndWriteLog('/', '5', enteredNumber);
+  writeToLog('/', '5', enteredNumber, out,);
+}
+

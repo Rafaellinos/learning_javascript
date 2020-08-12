@@ -1,0 +1,24 @@
+let out = parseInt(userInput.value) + 5;
+// pode usar +userInput.value para converter para numero
+/////////////
+number.toString()
+////////////
+var value = 1;
+value++; retorna 1;
+++value; returna 2;
+++ na frente retorna o resultdo já, enquando
+no final retorna o valor atual.
+///////////
+Core data types:
+Numbers,String,Booleans,Object,Arrays
+/////
+Special values
+undefined = Variaveis n iniciadas, data type.
+null = usar se quiser resetar a var ou limpar.
+NaN = Not a number (not a type), Error quando 1 * 'a' por exemplo.
+//////
+typeof('asdas') //return String
+typeof 1 //return number
+iRetorna o tipo
+//////
+console.table(Object)
