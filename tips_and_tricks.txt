@@ -1,0 +1,43 @@
+let out = parseInt(userInput.value) + 5;
+// pode usar +userInput.value para converter para numero
+/////////////
+number.toString()
+////////////
+var value = 1;
+value++; retorna 1;
+++value; returna 2;
+++ na frente retorna o resultdo já, enquando
+no final retorna o valor atual.
+///////////
+Core data types:
+Numbers,String,Booleans,Object,Arrays
+/////
+Special values
+undefined = Variaveis n iniciadas, data type.
+null = usar se quiser resetar a var ou limpar.
+NaN = Not a number (not a type), Error quando 1 * 'a' por exemplo.
+//////
+typeof('asdas') //return String
+typeof 1 //return number
+iRetorna o tipo
+//////
+console.table(Object)
+/////
+É preferivél colocar os códigos javascripts no header(começo),
+para carregar o js assim q possivel, e não com uma tag
+<script> no final do html, assim, o parse do html n é pausado,
+sendo possivel carregar o script e parsear o html ao mesmo tempo.
+Para casos em que o JS precisa do html carregado, usa-se defer.
+
+<script src="assets/scripts/vendor.js" defer></script>
+defer tag usada para carregar o js file
+e pausa a execução, esperando o parse o html.
+Caso n use a tag defer, irá dar erro pois o html
+n está pronto e o js está tentando executar.
+O ideia é que o JS não bloquei o parse do html
+e seja baixado primeiro, mas pausado para esperar o parse.
+defer garante a sequence dos script.
+
+<script src="assets/scripts/vendor.js" async></script>
+Aysnc n espera o parse do html, irá executar assim
+que foi baixado. Pode ser usado quando o js n tem ligação com o html
