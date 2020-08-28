@@ -15,7 +15,12 @@ const LOG_EVENT_GAME_OVER = 'GAME_OVER';
 const enteredValue = prompt('Choose a max life for you and the monster', '100');
 
 let chosenMaxLife = parseInt(enteredValue);
+chosenMaxLife = (isNaN(chosenMaxLife) || chosenMaxLife <= 0) && 100 || chosenMaxLife;
 let battleLog = [];
+
+//if (isNaN(chosenMaxLife) || chosenMaxLife <= 0) {
+//    chosenMaxLife = 100;
+//}
 
 function generateLog(event, value, monsterHealth, playerHealth, target) {
     return {
@@ -43,9 +48,7 @@ function writeLog(event, value, monsterHealth, playerHealth) {
     battleLog.push(logEntry);
 }
 
-if (isNaN(chosenMaxLife) || chosenMaxLife <= 0) {
-  chosenMaxLife = 100;
-}
+
 
 let currentMonsterHealth = chosenMaxLife;
 let currentPlayerHealth = chosenMaxLife;
@@ -108,17 +111,12 @@ function endRound() {
 }
 
 function attackMonster(mode) {
-    let maxDamage;
-    let logEvent;
-    if (mode === MODE_ATTACK) {
-        maxDamage = ATTACK_VALUE;
-        logEvent = LOG_EVENT_PLAYER_ATTACK;
-    } else if (mode === MODE_STRONG_ATTACK) {
-        maxDamage = STRONG_ATTACK_VALUE;
-        logEvent = LOG_EVENT_PLAYER_STRONG_ATTACK;
-    } else {
-        throw 'Mode ATTACK not identified!';
-    }
+    const maxDamage = mode === MODE_ATTACK ? ATTACK_VALUE:STRONG_ATTACK_VALUE;
+    const logEvent = 
+        mode === MODE_ATTACK ? 
+        LOG_EVENT_PLAYER_ATTACK :
+        LOG_EVENT_PLAYER_STRONG_ATTACK;
+
     const damage = dealMonsterDamage(maxDamage);
     currentMonsterHealth -= damage;
     writeLog(
