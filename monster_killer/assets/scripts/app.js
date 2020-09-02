@@ -12,15 +12,34 @@ const LOG_EVENT_MONSTER_ATTACK = 'MONSTER_ATTACK';
 const LOG_EVENT_PLAYER_HEAL = 'PLAYER_HEAL';
 const LOG_EVENT_GAME_OVER = 'GAME_OVER';
 
-const enteredValue = prompt('Choose a max life for you and the monster', '100');
-
-let chosenMaxLife = parseInt(enteredValue);
-chosenMaxLife = (isNaN(chosenMaxLife) || chosenMaxLife <= 0) && 100 || chosenMaxLife;
 let battleLog = [];
+let lastLogEntry;
+let chosenMaxLife;
 
-//if (isNaN(chosenMaxLife) || chosenMaxLife <= 0) {
-//    chosenMaxLife = 100;
-//}
+let currentMonsterHealth = chosenMaxLife;
+let currentPlayerHealth = chosenMaxLife;
+let hasBonusLife = true;
+
+try {
+    chosenMaxLife = getMaxLifeValues();
+} catch (error) {
+    console.log(error);
+    chosenMaxLife = 100;
+    alert('You entered an invalid number. The default number 100 was used.');
+} finally {
+    // não é necessário finally, apenas para exemplo
+    adjustHealthBars(chosenMaxLife);
+}
+    
+function getMaxLifeValues() {
+    const enteredValue = prompt('Choose a max life for you and the monster', '100');
+    const parsedValue = parseInt(enteredValue);
+    // chosenMaxLife = (isNaN(chosenMaxLife) || chosenMaxLife <= 0) && 100 || chosenMaxLife;
+    if (isNaN(parsedValue) || parsedValue <= 0) {
+        throw { message: 'Invalid user input not a number!'};
+    }
+    return parsedValue;
+}
 
 function generateLog(event, value, monsterHealth, playerHealth, target) {
     return {
@@ -32,29 +51,30 @@ function generateLog(event, value, monsterHealth, playerHealth, target) {
     }
 }
 
-function writeLog(event, value, monsterHealth, playerHealth) {
+function writeLog(ev, value, monsterHealth, playerHealth) {
     let logEntry;
-    if (event === LOG_EVENT_PLAYER_ATTACK) {
-        logEntry = generateLog(event, value, monsterHealth, playerHealth, 'Monster');
-    } else if (event === LOG_EVENT_PLAYER_STRONG_ATTACK) {
-        logEntry = generateLog(event, value, monsterHealth, playerHealth, 'Monster');
-    } else if (event === LOG_EVENT_PLAYER_HEAL) {
-        logEntry = generateLog(event, value, monsterHealth, playerHealth, 'Player');
-    } else if (event === LOG_EVENT_MONSTER_ATTACK) {
-        logEntry = generateLog(event, value, monsterHealth, playerHealth, 'Player');
-    } else if (event === LOG_EVENT_GAME_OVER) {
-        logEntry = generateLog(event, value, monsterHealth, playerHealth, null);
+
+    switch (ev) {
+        case LOG_EVENT_PLAYER_ATTACK:
+            logEntry = generateLog(event, value, monsterHealth, playerHealth, 'Monster');
+            break;
+        case LOG_EVENT_PLAYER_STRONG_ATTACK:
+            logEntry = generateLog(event, value, monsterHealth, playerHealth, 'Monster');
+            break;
+        case LOG_EVENT_PLAYER_HEAL:
+            logEntry = generateLog(event, value, monsterHealth, playerHealth, 'Player');
+            break;
+        case LOG_EVENT_MONSTER_ATTACK:
+            logEntry = generateLog(event, value, monsterHealth, playerHealth, 'Player');
+            break;
+        case LOG_EVENT_GAME_OVER:
+            logEntry = generateLog(event, value, monsterHealth, playerHealth, null);
+            break;
+        default:
+            logEntry = {};
     }
     battleLog.push(logEntry);
 }
-
-
-
-let currentMonsterHealth = chosenMaxLife;
-let currentPlayerHealth = chosenMaxLife;
-let hasBonusLife = true;
-
-adjustHealthBars(chosenMaxLife);
 
 function reset() {
   currentMonsterHealth = chosenMaxLife;
@@ -155,7 +175,35 @@ function healPlayerHandler() {
 }
 
 function printLogHandler () {
-    alert(battleLog);
+
+    // for (let i = 0; i < battleLog.length; i++) {
+    //     console.log(battleLog[i]);
+    // }
+    // abaixo para arrays
+    // let j = 0;
+    // while (j < 3) {
+    //     console.log(j);
+    //     j++;
+    // }
+
+    // let g = 0;
+    // do {
+    //     console.log(j);
+    // } while(g < 3);
+
+    let i = 0;
+    
+    for (const el of battleLog) {
+        if (!lastLogEntry && lastLogEntry !== 0 || lastLogEntry < i) {
+            for (const key in el) {
+                console.log(`key: ${key}, value: ${el[key]}`);
+            }
+            lastLogEntry = i;
+            break;
+        }
+        i++;
+    }
+    console.log(battleLog);
 }
 
 attackBtn.addEventListener('click', attackHandler);
