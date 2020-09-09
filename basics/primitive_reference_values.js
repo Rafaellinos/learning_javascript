@@ -19,7 +19,7 @@ Primitive:
 Reference Values:
 all objects
 Stored in memory HEAP, stores 
-a pointer (adress) to location in memory
+a pointer (address) to location in memory
 Only copies address:
     ex:
         let hobbies = ['Sports'];
