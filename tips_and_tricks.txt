@@ -42,10 +42,18 @@ defer garante a sequence dos script.
 Aysnc n espera o parse do html, irá executar assim
 que foi baixado. Pode ser usado quando o js n tem ligação com o html
 
-    ternary operator: const teste = true? 'é verdadeiro': 'é falso';
+ternary operator: const teste = true? 'é verdadeiro': 'é falso';
     
-    rest operator: const teste = (...numbers) => numbers //retorna array de todos argumentos
+rest operator: const teste = (...numbers) => numbers //retorna array de todos argumentos
 
-    callback: passando uma função por parâmetro: funcao(outraFuncao, argumento1, argumento2)// função será executada dentro
+callback: passando uma função por parâmetro: funcao(outraFuncao, argumento1, argumento2)// função será executada dentro
 
-    bind: pré setando parametros de uma função: funcao(outraFuncao.bind(this, argumentoOutro), argumento1, argumento2)
+bind: pré setando parametros de uma função: funcao(outraFuncao.bind(this, argumentoOutro), argumento1, argumento2)
+
+
+console.dir(document); // expondo todas as propriedade de um objeto
+
+window.alert('teste'); 
+// alert é uma função do browser, se a função nao tiver nada na frente, é pega do window.<METODO>
+
+$0 => acesso ao elemento selecionado com o mouse!
